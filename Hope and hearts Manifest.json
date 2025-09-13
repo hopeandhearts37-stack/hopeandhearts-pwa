@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hope and Hearts PWA</title>
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#d32f2f">
+</head>
+<body>
+  <h1>Hope and Hearts PWA Active!</h1>
+  <script>
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("/sw.js");
+    }
+  </script>
+</body>
+</html>
