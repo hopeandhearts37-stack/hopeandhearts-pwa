@@ -1,16 +1,119 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#ff69b4">
   <title>Hope and Hearts PWA</title>
-  <link rel="manifest" href="/manifest.json">
-  <meta name="theme-color" content="#d32f2f">
+
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icon-192.png" sizes="192x192">
+  <link rel="apple-touch-icon" href="icon-192.png">
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #fff0f5;
+      color: #333;
+      text-align: center;
+    }
+    header {
+      background: #ff69b4;
+      color: white;
+      padding: 1rem;
+      position: relative;
+    }
+    main {
+      padding: 2rem;
+    }
+    a.button {
+      display: inline-block;
+      padding: 0.8rem 1.5rem;
+      margin: 1rem 0;
+      background: #ff1493;
+      color: white;
+      text-decoration: none;
+      border-radius: 10px;
+      transition: 0.3s;
+    }
+    a.button:hover {
+      background: #ff69b4;
+    }
+    select {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      padding: 0.3rem;
+      border-radius: 5px;
+    }
+  </style>
 </head>
 <body>
-  <h1>Hope and Hearts PWA Active!</h1>
+  <header>
+    <h1 id="header-title">Hope and Hearts</h1>
+    <select id="language-select">
+      <option value="id">Indonesia</option>
+      <option value="en">English</option>
+      <option value="ar">العربية</option>
+      <option value="zh">中文</option>
+      <option value="ru">Русский</option>
+    </select>
+  </header>
+
+  <main>
+    <img src="https://i.postimg.cc/xc5xGncD/1755925812710.jpg" alt="Hope and Hearts" width="250">
+    <p id="main-text">Selamat datang di Hope and Hearts! Nikmati konten inspiratif dan positif di blog kami langsung dari aplikasi ini.</p>
+    <a href="https://hope-andhearts.blogspot.com/" class="button" id="blog-button">Buka Blog</a>
+  </main>
+
   <script>
-    if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("/sw.js");
+    const texts = {
+      id: {
+        header: "Hope and Hearts",
+        main: "Selamat datang di Hope and Hearts! Nikmati konten inspiratif dan positif di blog kami langsung dari aplikasi ini.",
+        button: "Buka Blog"
+      },
+      en: {
+        header: "Hope and Hearts",
+        main: "Welcome to Hope and Hearts! Enjoy inspiring and positive content from our blog directly through this app.",
+        button: "Open Blog"
+      },
+      ar: {
+        header: "أمل وقلوب",
+        main: "مرحبًا بكم في Hope and Hearts! استمتع بالمحتوى الملهم والإيجابي من مدونتنا مباشرة من خلال هذا التطبيق.",
+        button: "افتح المدونة"
+      },
+      zh: {
+        header: "希望与心",
+        main: "欢迎来到 Hope and Hearts！通过此应用直接欣赏我们博客的启发性和积极内容。",
+        button: "打开博客"
+      },
+      ru: {
+        header: "Надежда и Сердца",
+        main: "Добро пожаловать в Hope and Hearts! Наслаждайтесь вдохновляющим и позитивным контентом нашего блога прямо через это приложение.",
+        button: "Открыть блог"
+      }
+    };
+
+    const select = document.getElementById("language-select");
+    const header = document.getElementById("header-title");
+    const mainText = document.getElementById("main-text");
+    const blogButton = document.getElementById("blog-button");
+
+    select.addEventListener("change", () => {
+      const lang = select.value;
+      header.textContent = texts[lang].header;
+      mainText.textContent = texts[lang].main;
+      blogButton.textContent = texts[lang].button;
+    });
+
+    // Service Worker
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js')
+        .then(() => console.log('Service Worker terdaftar'))
+        .catch(err => console.log('Service Worker gagal:', err));
     }
   </script>
 </body>
